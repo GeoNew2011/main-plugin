@@ -24,6 +24,7 @@ import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.javacord.api.event.message.MessageCreateEvent;
 import plugin.ConfigJson;
 import plugin.models.PlayerData;
+import plugin.utils.Checks;
 import useful.Bundle;
 
 import java.awt.*;
@@ -220,6 +221,10 @@ public class Bot {
                 if (plr == null) {
                     Log.info("Player is offline, not kicking him");
                 } else {
+                    if (Checks.isAdmin(plr.uuid())) {
+                        listener.getChannel().sendMessage("You can`t ban admin!");
+                        return;
+                    }
                     plr.con.kick("[red]You have been banned!\n\n" + "[white]Reason: " + reason + "\nDuration: " + timeUntilUnban + " until unban\nIf you think this is a mistake, make sure to appeal ban in our discord: " + discordUrl, 0);
                 }
                 listener.getChannel().sendMessage("Banned: " + data.name);
