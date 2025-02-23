@@ -221,7 +221,7 @@ public class Bot {
                 if (plr == null) {
                     Log.info("Player is offline, not kicking him");
                 } else {
-                    if (Checks.isAdmin(plr.uuid())) {
+                    if (Checks.isAdmin(plr.uuid()) || plr.admin) {
                         listener.getChannel().sendMessage("You can`t ban admin!");
                         return;
                     }
