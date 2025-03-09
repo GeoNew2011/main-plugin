@@ -59,7 +59,7 @@ public class MainCommands {
         handler.<Player>register("list", "Lists all players on the server", (args, player) -> {
             StringBuilder list = new StringBuilder();
             for (Player plr : Groups.player) {
-                PlayerData data = new PlayerData("uuid");
+                PlayerData data = new PlayerData(plr);
                 if (data.isExist()) {
                     list.append(plr.name()).append("; [white]ID: ").append(data.getId()).append("\n");
                 }
@@ -67,7 +67,7 @@ public class MainCommands {
             player.sendMessage(String.valueOf(list));
         });
         handler.<Player>register("js", "<code...>", "Execute JavaScript code.", (args, player) -> {
-            PlayerData data = new PlayerData("uuid");
+            PlayerData data = new PlayerData(player);
             if (player.admin() && data.getRank().hasJS()) {
                 try {
                     String output = mods.getScripts().runConsole(args[0]);
